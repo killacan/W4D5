@@ -81,3 +81,42 @@ end
 # p largest_contiguous_subsum_2([5, 3, -7])
 # p largest_contiguous_subsum_2([2, 3, -6, 7, -6, 7])
 # p largest_contiguous_subsum_2([-5, -1, -3])
+
+def first_anagrams?(str1,str2)
+     anagrams= str1.split("").permutation.to_a
+
+    anagrams.join("").include?(str2)
+    #time complexity is factorial O(n!)
+   
+end
+# p first_anagrams?("gizmo", "sally")    #=> false
+# p first_anagrams?("elvis", "lives")    #=> true
+
+def second_anagrams?(str1,str2)
+
+  str1.each_char.with_index do |char,i|
+   str2.delete!(char) if str2.include?(char)
+    
+  end
+#time complexity is quadratic =O(n^3)
+ str2.empty?
+end
+# p second_anagrams?("gizmo", "sally")    #=> false
+# p second_anagrams?("elvis", "lives")    #=> true
+# -------------------------------------------
+def third_anagrams?(str1,str2)
+    str.sort == str2.sort
+    # time complexity is linearithmic O(n log n)
+end
+# p second_anagrams?("gizmo", "sally")    #=> false
+# p second_anagrams?("elvis", "lives")    #=> true
+# ------------------------------------------------
+def fourth_anagrams?(str1,str2)
+   hash=Hash.new(0)
+   
+   str1.each_char {|c| hash[c]+=1}
+   str2.each_char {|c| hash[c]-=1}
+   hash.values.sum == 0
+end
+p second_anagrams?("gizmo", "sally")    #=> false
+p second_anagrams?("elvis", "lives")    #=> true
