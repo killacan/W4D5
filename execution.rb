@@ -118,5 +118,83 @@ def fourth_anagrams?(str1,str2)
    str2.each_char {|c| hash[c]-=1}
    hash.values.sum == 0
 end
-p second_anagrams?("gizmo", "sally")    #=> false
-p second_anagrams?("elvis", "lives")    #=> true
+# p second_anagrams?("gizmo", "sally")    #=> false
+# p second_anagrams?("elvis", "lives")    #=> true
+
+
+def bad_two_sum?(arr, target_sum) 
+
+    arr.each_with_index do |ele1, i1|
+        arr.each_with_index do |ele2, i2|
+            if i2 > i1 && ele1 + ele2 == target_sum
+                return true
+            end
+        end
+
+    end
+    false
+end
+def ok_two_sum?(arr, target_sum) 
+
+    sorted=arr.sort
+    mid_index=sorted.length / 2
+    i = 0
+    hit = false 
+    while i < arr.length
+        # p "stuck in a loop"
+        if sorted[i] > (target_sum / 2) && !hit
+            i1 = i - 1
+            i2 = i
+            hit = true
+            
+        end
+        i += 1
+    end
+    # i1=mid_index
+    # i2=i1+1
+
+    # p sorted[i1] 
+    # p sorted[i2]
+    sorted_check = false
+    while !sorted_check
+        case sorted[i1] + sorted[i2] <=> target_sum
+        when 0 
+            return true
+        when 1
+            p "left"
+            p sorted[i1] + sorted[i2]
+            i1-=1
+            return false if i1 == 0
+        when -1
+            p "right"
+            i2+=1      
+            return false if i2 == arr.lenght 
+        end
+    end
+    return false
+    # time complexity is linearithmic O(n log n)
+end
+
+arr = [1,3,5,1000,1500,2000,2500,5000000]
+p ok_two_sum?(arr, 6) # => should be true
+p ok_two_sum?(arr, 10) # => should be false
+
+
+def two_sum?(arr, target)
+    hash = {} 
+    arr.each do |n|
+        value = target - n
+     if hash.has_key?(value)
+        return true
+     else
+        hash[n]=value
+     end
+    end
+    false
+     # time complexity is linear O(n)
+end
+
+# arr = [0, 1, 5, 7]
+# p two_sum?(arr, 6) # => should be true
+# p two_sum?(arr, 10) # => should be false
+# # ------------------------------------------------
